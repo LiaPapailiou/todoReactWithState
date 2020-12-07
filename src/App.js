@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
-import AddTodo from './components/AddTodo';
 import List from './components/ListTodos';
 import './App.css';
 

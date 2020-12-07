@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import shortid from 'shortid';
 import AddTodo from './AddTodo';
 
 const ListTodos = () => {
-  const [list, setList] = useState({todos:[]})
+  const [list, setList] = useState({todos:[]});
 
   const { todos } = list;
 
@@ -11,7 +10,18 @@ const ListTodos = () => {
     setList({todos:[todo, ...todos]});
   };
 
-  console.log(todos);
+  const onCompleteClick = (id) => {
+   setList({ todos: todos.map((item) => {
+     if (item.id === id) {
+       return { ...item, completed:  !item.completed};
+     }
+     return item;
+   })})
+  }
+
+  const onDeleteClick = (id) => {
+    setList({todos: todos.filter((item) => item.id !== id)});
+  }
 
   return (
     <div>
@@ -20,21 +30,21 @@ const ListTodos = () => {
         <tbody className="list-items">
           {
             todos && todos.map((item) => (
-              <tr key={shortid.generate()}>
+              <tr key={item.id}>
                 <td
                   className={item.completed ? 'mark-done' : ''}
                 >
                   {item.todo}
                 </td>
                 <td
-                  // onClick={() => props.onCompleteClick(item.id)}
-                  // role="presentation"
+                  onClick={() => onCompleteClick(item.id)}
+                  role="presentation"
                 >
                   <i className="fas fa-check" />
                 </td>
                 <td
-                  // onClick={() => props.onDeleteClick(item.id)}
-                  // role="presentation"
+                  onClick={() => onDeleteClick(item.id)}
+                  role="presentation"
                 >
                   <i className="fas fa-trash" />
                 </td>
